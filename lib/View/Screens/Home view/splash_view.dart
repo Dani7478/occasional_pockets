@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:occasional_pockets/View/Screens/Authentication/login_view.dart';
+import 'package:occasional_pockets/View/Screens/Authentication/movement.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 
 class SplashView extends StatefulWidget {
@@ -13,7 +14,8 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    Timer(const Duration(seconds: 5), () => navigatorScreen(const LoginView()));
+    Timer(const Duration(seconds: 5),
+        () => navigatorScreen(const Movement_Screen()));
     super.initState();
   }
 

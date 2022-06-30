@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "729957897772",
+    "project_id": "occasional-pockets",
+    "storage_bucket": "occasional-pockets.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729957897772:android:e62e9e79d5f00b03b4e389",
+        "android_client_info": {
+          "package_name": "com.example.occasional_pockets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729957897772-l2cetg59fsq5gbdadgjiioupgjp7nts7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbQi8CliGyBw-aGEDP3GnFtijyUvee9ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729957897772-l2cetg59fsq5gbdadgjiioupgjp7nts7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

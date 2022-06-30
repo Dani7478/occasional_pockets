@@ -16,9 +16,9 @@ snackBar(
         style: GoogleFonts.josefinSans(
             fontSize: 12, color: Colors.white, fontWeight: FontWeight.w600),
       ),
-      backgroundColor: primaryColor,
+      backgroundColor: Colors.grey,
       animationDuration: const Duration(seconds: 1),
-      duration:const Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       icon: Icon(icon, color: Colors.white),
       snackPosition: SnackPosition.TOP,
       margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10));

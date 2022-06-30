@@ -108,25 +108,26 @@ class MiddleSection extends StatelessWidget {
 
   //______________________________LOGIN BUTTON
   loginButton() {
-    return InkWell(
-      onTap: () {
-        snackBar('Welcome Here', 'Welcome in Occasional Pocket', Icons.home);
-        navigatorScreen(const AdminStartUpView());
-      },
-      child: Container(
-        height: 50,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: primaryColor, borderRadius: BorderRadius.circular(8)),
-        child: Center(
-          child: Text('Login',
-              style: GoogleFonts.josefinSans(
-                  fontSize: 28,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w500)),
+    return GetBuilder<LoginController>(builder: (controller) {
+      return InkWell(
+        onTap: () {
+          controller.checkUser();
+        },
+        child: Container(
+          height: 50,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: primaryColor, borderRadius: BorderRadius.circular(8)),
+          child: Center(
+            child: Text('Login',
+                style: GoogleFonts.josefinSans(
+                    fontSize: 28,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500)),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   //____________________________REGISTRATION TEXT

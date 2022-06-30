@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:occasional_pockets/View/Screens/Admin%20view/Manage/admin_manage_home_view.dart';
+import 'package:occasional_pockets/View/Screens/Admin%20view/Packages/admin_make_own_package_view.dart';
+import 'package:occasional_pockets/View/Screens/Admin%20view/Request/admin_request.dart';
 import 'package:occasional_pockets/View/Screens/Admin%20view/admin_home_view.dart';
 import 'package:occasional_pockets/linked_screens.dart';
-import '../../../Controller/admin_home_cotroller.dart';
+import '../../../Controller/AdminControllers/admin_home_cotroller.dart';
 
 class AdminStartUpView extends StatelessWidget {
   const AdminStartUpView({Key? key}) : super(key: key);
@@ -15,18 +18,12 @@ class AdminStartUpView extends StatelessWidget {
           return const AdminHomeView();
         }
         if (controller.index == 2) {
-          return const Center(
-            child: Text('Admin Service View'),
-          );
+          return const AdminManageView();
         }
         if (controller.index == 3) {
-          return const Center(
-            child: Text('Admin Request Screen'),
-          );
+          return const AdminRequest();
         } else {
-          return const Center(
-            child: Text('Admin Setting Screen'),
-          );
+          return const AboutUsView();
         }
       }),
       bottomNavigationBar: const NavigationPortion(),

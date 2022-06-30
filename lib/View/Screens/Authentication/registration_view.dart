@@ -114,7 +114,6 @@ class BottomPortion extends StatelessWidget {
     return TextFormField(
       controller: registerCrl.contactController,
       keyboardType: TextInputType.phone,
-      obscureText: true,
       decoration: const InputDecoration(
         labelText: 'Contact No',
         border: OutlineInputBorder(),
@@ -128,7 +127,6 @@ class BottomPortion extends StatelessWidget {
     return TextFormField(
       controller: registerCrl.cityController,
       keyboardType: TextInputType.text,
-      obscureText: true,
       decoration: const InputDecoration(
         labelText: 'City',
         border: OutlineInputBorder(),
@@ -152,26 +150,28 @@ class BottomPortion extends StatelessWidget {
     );
   }
 
-  //______________________________LOGIN BUTTON
+  //______________________________REGISTERATION BUTTON
   loginButton() {
-    return InkWell(
-      onTap: () {
-        //loginCrl.updateController();
-      },
-      child: Container(
-        height: 50,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: primaryColor, borderRadius: BorderRadius.circular(8)),
-        child: Center(
-          child: Text('Register',
-              style: GoogleFonts.josefinSans(
-                  fontSize: 28,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w500)),
+    return GetBuilder<RegistrationController>(builder: (controller) {
+      return InkWell(
+        onTap: () {
+          controller.postData();
+        },
+        child: Container(
+          height: 50,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: primaryColor, borderRadius: BorderRadius.circular(8)),
+          child: Center(
+            child: Text('Register',
+                style: GoogleFonts.josefinSans(
+                    fontSize: 28,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500)),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   //____________________________REGISTRATION TEXT

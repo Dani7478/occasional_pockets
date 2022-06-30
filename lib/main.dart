@@ -1,6 +1,8 @@
 import 'linked_screens.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'FYP Project',
       theme: ThemeData.light().copyWith(
           primaryColorLight: Colors.orangeAccent,
           backgroundColor: Colors.white,

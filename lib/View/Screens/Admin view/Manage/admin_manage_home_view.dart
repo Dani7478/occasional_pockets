@@ -1,17 +1,17 @@
 import 'package:occasional_pockets/Controller/AdminControllers/admin_home_cotroller.dart';
-import 'package:occasional_pockets/View/Screens/Admin%20view/Packages/admin_make_own_package_view.dart';
-import 'package:occasional_pockets/View/Screens/Admin%20view/Packages/admin_platinum_package_view.dart';
-import 'package:occasional_pockets/View/Screens/Admin%20view/Packages/admin_premium_package_view.dart';
+import 'package:occasional_pockets/View/Screens/Admin%20view/Manage/basic_package_form_view.dart';
+import 'package:occasional_pockets/View/Screens/Admin%20view/Manage/makeown_package_form_view.dart';
+import 'package:occasional_pockets/View/Screens/Admin%20view/Manage/platinum_package_form_view.dart';
+import 'package:occasional_pockets/View/Screens/Admin%20view/Manage/premium_package_form_view.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 
-import 'Packages/admin_basic_package_view.dart';
+AdminHomeController adminCrl = Get.put(AdminHomeController());
 
-class AdminHomeView extends StatelessWidget {
-  const AdminHomeView({Key? key}) : super(key: key);
+class AdminManageView extends StatelessWidget {
+  const AdminManageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    AdminHomeController adminCrl = Get.put(AdminHomeController());
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: PreferredSize(
@@ -36,27 +36,23 @@ class AppBarPortion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AdminHomeController>(builder: (controller) {
-      return Padding(
-        padding: const EdgeInsets.only(left: 8, right: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              controller.marqueeName,
-              style: GoogleFonts.josefinSans(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800),
-            ),
-            InkWell(
-              onTap: () {},
-              child: const Icon(Icons.search, size: 25, color: Colors.white),
-            )
-          ],
-        ),
-      );
-    });
+    return Padding(
+      padding: const EdgeInsets.only(left: 8, right: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Manage Your Pakages',
+            style: GoogleFonts.josefinSans(
+                fontSize: 16, color: Colors.white, fontWeight: FontWeight.w800),
+          ),
+          InkWell(
+            onTap: () {},
+            child: const Icon(Icons.search, size: 25, color: Colors.white),
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -71,6 +67,7 @@ class MainBodyPortion extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // const Divider(
           //    thickness: 1,
@@ -92,8 +89,8 @@ class MainBodyPortion extends StatelessWidget {
                   Icons.type_specimen_rounded),
             ],
           ),
-          morePortion(size, 'More', 'See More Detail About Package',
-              Icons.type_specimen_rounded),
+          // morePortion(size, 'More', 'See More Detail About Package',
+          //     Icons.type_specimen_rounded),
         ],
       ),
     );
@@ -105,16 +102,16 @@ class MainBodyPortion extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (title == 'Basic Package') {
-            navigatorScreen(const AdminBasicPackageView());
+            navigatorScreen(const BasicPackageFormView());
           }
           if (title == 'Premium Package') {
-            navigatorScreen(const AdminPremiumPackageView());
+            navigatorScreen(const PremiumPackageFormView());
           }
           if (title == 'platinum Package') {
-            navigatorScreen(const AdminPlatinumPackageView());
+            navigatorScreen(const PlatinumPackageFormView());
           }
           if (title == 'Make Own') {
-            navigatorScreen(const AdminMakeownPackageView());
+            navigatorScreen(const MakeownPackageFormView());
           }
         },
         child: Container(

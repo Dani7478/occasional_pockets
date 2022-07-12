@@ -2,6 +2,7 @@
 
 import 'package:occasional_pockets/View/Common%20Widgets/snack_bar.dart';
 import 'package:occasional_pockets/View/Screens/Admin%20view/admin_startup_view.dart';
+import 'package:occasional_pockets/View/Screens/User%20view/user_startup_view.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 
 class LoginController extends GetxController {
@@ -22,7 +23,7 @@ class LoginController extends GetxController {
     try {
       var response = await FirebaseFirestore.instance
           .collection('user')
-          .where('email', isEqualTo: email)
+          .where('email', isEqualTo: email.toLowerCase())
           .where('password', isEqualTo: password)
           .get()
           .then((QuerySnapshot querySnapshot) => {
@@ -38,6 +39,11 @@ class LoginController extends GetxController {
                   }
                   if (role.toLowerCase() == 'admin') {
                     navigatorScreen(const AdminStartUpView());
+                    snackBar('Congratulations', 'Welcome in Occasional Pockets',
+                        Icons.done_all);
+                  }
+                  if (role.toLowerCase() == 'user') {
+                    navigatorScreen(const UserStartUpView());
                     snackBar('Congratulations', 'Welcome in Occasional Pockets',
                         Icons.done_all);
                   }

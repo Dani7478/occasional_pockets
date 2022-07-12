@@ -393,7 +393,7 @@ serviceCard(String productImage, String productName, int productPricr) {
                   fontWeight: FontWeight.w800),
             ),
             trailing: Text(
-              '\$ $productPricr',
+              'PKR $productPricr',
               style: GoogleFonts.josefinSans(
                   fontSize: 18,
                   color: Colors.white,

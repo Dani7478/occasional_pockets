@@ -4,24 +4,35 @@ import 'package:occasional_pockets/Controller/AdminControllers/admin_request_con
 import 'package:occasional_pockets/View/Screens/Admin%20view/Request/admin_request%20_detail.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 
-class AdminRequest extends StatefulWidget {
-  const AdminRequest({Key? key}) : super(key: key);
+class UserRequest extends StatefulWidget {
+  const UserRequest({Key? key}) : super(key: key);
 
   @override
-  State<AdminRequest> createState() => _AdminRequestState();
+  State<UserRequest> createState() => _UserRequestState();
 }
 
-class _AdminRequestState extends State<AdminRequest> {
+class _UserRequestState extends State<UserRequest> {
+  UserRequestController adminReqCtrl = Get.put(UserRequestController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    calling();
+  }
+
+  calling() async {
+    await adminReqCtrl.getAllData();
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    Get.delete<AdminRequestController>();
+    //Get.delete<UserRequestController>();
   }
 
   @override
   Widget build(BuildContext context) {
-    AdminRequestController adminReqCtrl = Get.put(AdminRequestController());
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -45,7 +56,7 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AdminRequestController>(builder: (controller) {
+    return GetBuilder<UserRequestController>(builder: (controller) {
       return controller.requestList.isEmpty
           ? const Loader()
           : ListView.builder(
@@ -82,7 +93,10 @@ class MainView extends StatelessWidget {
                     onTap: () {
                       print('click');
                       navigatorScreen(
-                          AdminRequestDetailView(id: id, role: 'admin'));
+                          AdminRequestDetailView(id: id, role: 'user'));
+                    },
+                    onLongPress: () {
+                      controller.cancelOrder(id);
                     },
                     child: Container(
                       height: 120,

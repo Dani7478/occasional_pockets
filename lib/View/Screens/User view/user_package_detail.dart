@@ -1,28 +1,57 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:occasional_pockets/Controller/AdminControllers/admin_basic_controller.dart';
-import 'package:occasional_pockets/Controller/AdminControllers/admin_premium_controller.dart';
 import 'package:occasional_pockets/linked_screens.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
-class AdminPremiumPackageView extends StatelessWidget {
-  const AdminPremiumPackageView({Key? key}) : super(key: key);
+class UserPackageDetailView extends StatefulWidget {
+  UserPackageDetailView({Key? key, required this.email, required this.package})
+      : super(key: key);
+  String? email;
+  String? package;
+
+  @override
+  State<UserPackageDetailView> createState() => _UserPackageDetailViewState();
+}
+
+class _UserPackageDetailViewState extends State<UserPackageDetailView> {
+  UserPackageDetailController controller =
+      Get.put(UserPackageDetailController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.getPackageDetail(
+        widget.email.toString(), widget.package.toString());
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller = Get.put(UserPackageDetailController());
+  }
 
   @override
   Widget build(BuildContext context) {
-    AdminPremiumController adminPremiumCrl = Get.put(AdminPremiumController());
     return Scaffold(
         appBar: AppBar(
-          title: titleText,
+          centerTitle: true,
+          title: Text(
+            widget.package!.toUpperCase(),
+            style: GoogleFonts.roboto(
+                fontSize: 18, color: Colors.white, fontWeight: FontWeight.w800),
+          ),
           shape: appBarDecoration,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: SingleChildScrollView(
             child: Column(
-              children: const [
-                TopPriceHeader(),
-                ServicePortion(),
+              children: [
+                const TopPriceHeader(),
+                ServicePortion(
+                    package: widget.package.toString(), controller: controller),
               ],
             ),
           ),
@@ -37,7 +66,7 @@ class TopPriceHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return GetBuilder<AdminPremiumController>(builder: (controller) {
+    return GetBuilder<UserPackageDetailController>(builder: (controller) {
       return Padding(
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
         child: Row(
@@ -51,7 +80,7 @@ class TopPriceHeader extends StatelessWidget {
                   fontWeight: FontWeight.w800),
             ),
             Text(
-              "Price: PKR ${controller.price}",
+              "Price: ${controller.price} PKR",
               style: GoogleFonts.josefinSans(
                   fontSize: 18,
                   color: Colors.redAccent,
@@ -66,18 +95,21 @@ class TopPriceHeader extends StatelessWidget {
 
 //_____________________________________________SERVICE PORTION
 class ServicePortion extends StatelessWidget {
-  const ServicePortion({Key? key}) : super(key: key);
-
+  ServicePortion({Key? key, required this.package, required this.controller})
+      : super(key: key);
+  String package;
+  UserPackageDetailController controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Column(
-        children: const [
-          FoodPortion(),
-          DJPortion(),
-          DecorationPortion(),
-          PhotoGraphyPortion()
+        children: [
+          const FoodPortion(),
+          const DJPortion(),
+          const DecorationPortion(),
+          const PhotoGraphyPortion(),
+          OrderNowButton(package: package, controller: controller),
         ],
       ),
     );
@@ -90,7 +122,7 @@ class FoodPortion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AdminPremiumController>(builder: (controller) {
+    return GetBuilder<UserPackageDetailController>(builder: (controller) {
       bool expand = controller.isExpanded[0];
       return Container(
         height: expand == false ? 80 : 400,
@@ -152,7 +184,7 @@ class DJPortion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AdminPremiumController>(builder: (controller) {
+    return GetBuilder<UserPackageDetailController>(builder: (controller) {
       bool expand = controller.isExpanded[1];
       return Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -217,7 +249,7 @@ class DecorationPortion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AdminPremiumController>(builder: (controller) {
+    return GetBuilder<UserPackageDetailController>(builder: (controller) {
       bool expand = controller.isExpanded[2];
       return Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -285,7 +317,7 @@ class PhotoGraphyPortion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AdminPremiumController>(builder: (controller) {
+    return GetBuilder<UserPackageDetailController>(builder: (controller) {
       bool expand = controller.isExpanded[3];
       return Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -373,8 +405,128 @@ class PhotoGraphyPortion extends StatelessWidget {
   }
 }
 
-Widget titleText = Text(
-  "Premium Package",
-  style: GoogleFonts.roboto(
-      fontSize: 18, color: Colors.white, fontWeight: FontWeight.w800),
-);
+class OrderNowButton extends StatelessWidget {
+  OrderNowButton({Key? key, required this.package, required this.controller})
+      : super(key: key);
+  String package;
+  UserPackageDetailController controller;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      width: double.infinity,
+      height: 55,
+      decoration: BoxDecoration(
+          color: primaryColor, borderRadius: BorderRadius.circular(10)),
+      child: TextButton(
+        onPressed: () {
+          submitAlert(context, controller);
+        },
+        child: Text(
+          'Order Now',
+          style: GoogleFonts.josefinSans(
+              fontSize: 16, color: Colors.white, fontWeight: FontWeight.w800),
+        ),
+      ),
+    );
+  }
+
+  submitAlert(BuildContext context, UserPackageDetailController controller) {
+    return Get.defaultDialog(
+        title: 'Order Now',
+        titleStyle: GoogleFonts.josefinSans(
+            fontSize: 18, color: Colors.redAccent, fontWeight: FontWeight.w800),
+        backgroundColor: const Color.fromARGB(255, 220, 230, 248),
+        radius: 5,
+        content: Column(
+          children: [
+            //Date
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: primaryColor, borderRadius: BorderRadius.circular(10)),
+              child: TextButton(
+                onPressed: () {
+                  selectDate(context);
+                },
+                child: Text(
+                  'Select Date',
+                  style: GoogleFonts.josefinSans(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+            ),
+
+            //time
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: primaryColor, borderRadius: BorderRadius.circular(10)),
+              child: TextButton(
+                onPressed: () {
+                  selectTime(context);
+                },
+                child: Text(
+                  'Select Time',
+                  style: GoogleFonts.josefinSans(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+            ),
+
+            //submit order
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              width: 150,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: primaryColor, borderRadius: BorderRadius.circular(10)),
+              child: TextButton(
+                onPressed: () {
+                  controller.postPackage(package);
+                  Get.back();
+                },
+                child: Text(
+                  'Submit Order',
+                  style: GoogleFonts.josefinSans(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800),
+                ),
+              ),
+            ),
+          ],
+        ));
+  }
+
+  selectDate(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: controller.selectedDate,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2025),
+    );
+    if (selected != null && selected != controller.selectedDate) {
+      controller.updateDate(selected);
+    }
+  }
+
+  selectTime(BuildContext context) async {
+    final TimeOfDay? timeOfDay = await showTimePicker(
+      context: context,
+      initialTime: controller.selectedTime,
+      initialEntryMode: TimePickerEntryMode.dial,
+    );
+    if (timeOfDay != null && timeOfDay != controller.selectedTime) {
+      controller.updatetime(timeOfDay);
+    }
+  }
+}

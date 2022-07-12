@@ -40,7 +40,7 @@ class RegistrationController extends GetxController {
     } else {
       var data = {
         'name': nameController.text,
-        'email': emailController.text,
+        'email': emailController.text.toLowerCase(),
         'phone': contactController.text,
         'city': cityController.text,
         'role': role,
@@ -53,7 +53,11 @@ class RegistrationController extends GetxController {
         await prefs.setString('phone', contactController.text);
         await prefs.setString('role', role);
         snackBar('Register Successfully', 'Please login now', Icons.done_all);
-        navigatorScreen(const MarqueeFormView());
+        if (role.toLowerCase() == 'admin') {
+          navigatorScreen(const MarqueeFormView());
+        } else {
+          navigatorScreen(const MarqueeFormView());
+        }
       }
     }
     snackBar('ALERT...!', msg, Icons.error);

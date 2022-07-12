@@ -1,14 +1,15 @@
+// ignore_for_file: must_be_immutable
 import 'package:occasional_pockets/Controller/AdminControllers/admin_home_cotroller.dart';
-import 'package:occasional_pockets/View/Screens/Admin%20view/Packages/admin_make_own_package_view.dart';
-import 'package:occasional_pockets/View/Screens/Admin%20view/Packages/admin_platinum_package_view.dart';
-import 'package:occasional_pockets/View/Screens/Admin%20view/Packages/admin_premium_package_view.dart';
+import 'package:occasional_pockets/View/Screens/User%20view/user_makeown_package_detail.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 
-import 'Packages/admin_basic_package_view.dart';
+import 'user_package_detail.dart';
 
-class AdminHomeView extends StatelessWidget {
-  const AdminHomeView({Key? key}) : super(key: key);
-
+class UserPackageView extends StatelessWidget {
+  UserPackageView({Key? key, required this.email, required this.marqueename})
+      : super(key: key);
+  String? email;
+  String? marqueename;
   @override
   Widget build(BuildContext context) {
     AdminHomeController adminCrl = Get.put(AdminHomeController());
@@ -21,19 +22,22 @@ class AdminHomeView extends StatelessWidget {
             backgroundColor: primaryColor,
             automaticallyImplyLeading: false,
             elevation: 0,
-            title: const AppBarPortion(),
+            title: AppBarPortion(marquename: marqueename),
             shape: appBarDecoration,
           ),
         ),
-        body: const MainBodyPortion());
+        body: MainBodyPortion(
+          email: email,
+          marqueename: marqueename,
+        ));
   }
 }
 
 //___________________________________________________APP BAR PORTION
 
 class AppBarPortion extends StatelessWidget {
-  const AppBarPortion({Key? key}) : super(key: key);
-
+  AppBarPortion({Key? key, required this.marquename}) : super(key: key);
+  String? marquename;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AdminHomeController>(builder: (controller) {
@@ -43,7 +47,7 @@ class AppBarPortion extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              controller.marqueeName,
+              marquename!,
               style: GoogleFonts.josefinSans(
                   fontSize: 16,
                   color: Colors.white,
@@ -63,8 +67,10 @@ class AppBarPortion extends StatelessWidget {
 //____________________________________________________________BODY PORTION
 
 class MainBodyPortion extends StatelessWidget {
-  const MainBodyPortion({Key? key}) : super(key: key);
-
+  MainBodyPortion({Key? key, required this.email, required this.marqueename})
+      : super(key: key);
+  String? email;
+  String? marqueename;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -106,16 +112,19 @@ class MainBodyPortion extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (title == 'Basic Package') {
-            navigatorScreen(const AdminBasicPackageView());
+            navigatorScreen(
+                UserPackageDetailView(email: email, package: 'basic'));
           }
           if (title == 'Premium Package') {
-            navigatorScreen(const AdminPremiumPackageView());
+            navigatorScreen(
+                UserPackageDetailView(email: email, package: 'premium'));
           }
           if (title == 'platinum Package') {
-            navigatorScreen(const AdminPlatinumPackageView());
+            navigatorScreen(
+                UserPackageDetailView(email: email, package: 'platinum'));
           }
           if (title == 'Make Own') {
-            navigatorScreen(const AdminMakeownPackageView());
+            navigatorScreen(UserMakeownPackageDetail(email: email.toString()));
           }
         },
         child: Container(

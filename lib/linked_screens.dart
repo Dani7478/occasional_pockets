@@ -23,3 +23,9 @@ export 'package:occasional_pockets/View/Screens/Authentication/marquee_form.dart
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'Controller/ManageControllers/makeown_form_controller.dart';
 export 'Controller/AdminControllers/admin_makeown_controller.dart';
+export 'Controller/UserController/user_conroller.dart';
+export 'Controller/UserController/user_package_detail.dart';
+export 'Controller/UserController/user_makeown_detal.dart';
+export 'package:flutter_spinkit/flutter_spinkit.dart';
+export 'View/Common Widgets/loader_widget.dart';
+export 'Controller/UserController/user_request_controller.dart';

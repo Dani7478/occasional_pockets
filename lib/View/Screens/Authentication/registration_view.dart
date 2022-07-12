@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:occasional_pockets/Controller/registration_controller.dart';
 import 'package:occasional_pockets/View/Common%20Functions/app_color.dart';
@@ -13,11 +15,20 @@ class RegistrationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            TopTextSection(),
-            BottomPortion(),
-          ],
+        child: Container(
+          decoration: const BoxDecoration(
+            //color: Color.fromARGB(255, 22, 22, 22),
+            image: DecorationImage(
+                image: AssetImage('images/background.png'),
+                fit: BoxFit.fill,
+                alignment: Alignment.bottomCenter),
+          ),
+          child: Column(
+            children: const [
+              TopTextSection(),
+              BottomPortion(),
+            ],
+          ),
         ),
       ),
     );
@@ -38,7 +49,7 @@ class TopTextSection extends StatelessWidget {
         child: Text('Registration View',
             style: GoogleFonts.josefinSans(
                 fontSize: 28,
-                color: Colors.black87,
+                color: Colors.white,
                 fontWeight: FontWeight.w500)),
       ),
     );
@@ -88,10 +99,16 @@ class BottomPortion extends StatelessWidget {
     return TextFormField(
       controller: registerCrl.nameController,
       keyboardType: TextInputType.name,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Full Name',
+        labelStyle: GoogleFonts.josefinSans(
+          color: Colors.white,
+        ),
         border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.person),
+        prefixIcon: Icon(Icons.person, color: Colors.white),
+      ),
+      style: GoogleFonts.josefinSans(
+        color: Colors.white,
       ),
     );
   }
@@ -101,10 +118,16 @@ class BottomPortion extends StatelessWidget {
     return TextFormField(
       controller: registerCrl.emailController,
       keyboardType: TextInputType.emailAddress,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Email Address',
         border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.email),
+        labelStyle: GoogleFonts.josefinSans(
+          color: Colors.white,
+        ),
+        prefixIcon: Icon(Icons.email, color: Colors.white),
+      ),
+      style: GoogleFonts.josefinSans(
+        color: Colors.white,
       ),
     );
   }
@@ -114,10 +137,16 @@ class BottomPortion extends StatelessWidget {
     return TextFormField(
       controller: registerCrl.contactController,
       keyboardType: TextInputType.phone,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Contact No',
         border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.call),
+        labelStyle: GoogleFonts.josefinSans(
+          color: Colors.white,
+        ),
+        prefixIcon: Icon(Icons.call, color: Colors.white),
+      ),
+      style: GoogleFonts.josefinSans(
+        color: Colors.white,
       ),
     );
   }
@@ -127,10 +156,16 @@ class BottomPortion extends StatelessWidget {
     return TextFormField(
       controller: registerCrl.cityController,
       keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'City',
         border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.location_city),
+        labelStyle: GoogleFonts.josefinSans(
+          color: Colors.white,
+        ),
+        prefixIcon: Icon(Icons.location_city, color: Colors.white),
+      ),
+      style: GoogleFonts.josefinSans(
+        color: Colors.white,
       ),
     );
   }
@@ -141,11 +176,17 @@ class BottomPortion extends StatelessWidget {
       controller: registerCrl.passwController,
       keyboardType: TextInputType.phone,
       obscureText: true,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Password',
+        labelStyle: GoogleFonts.josefinSans(
+          color: Colors.white,
+        ),
         border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.lock),
-        suffixIcon: Icon(Icons.remove_red_eye),
+        prefixIcon: Icon(Icons.lock, color: Colors.white),
+        suffixIcon: Icon(Icons.remove_red_eye, color: Colors.white),
+      ),
+      style: GoogleFonts.josefinSans(
+        color: Colors.white,
       ),
     );
   }
@@ -182,7 +223,7 @@ class BottomPortion extends StatelessWidget {
         Text('I have Already Account',
             style: GoogleFonts.roboto(
                 fontSize: 14,
-                color: Colors.black87,
+                color: Colors.white,
                 fontWeight: FontWeight.w200)),
         InkWell(
           onTap: () {
@@ -208,7 +249,7 @@ class BottomPortion extends StatelessWidget {
             child: Text('Select Role',
                 style: GoogleFonts.josefinSans(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.w500)),
           ),
           Expanded(
@@ -227,7 +268,7 @@ class BottomPortion extends StatelessWidget {
               Text('User',
                   style: GoogleFonts.roboto(
                       fontSize: 16,
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.w400))
             ]),
           ),
@@ -247,7 +288,7 @@ class BottomPortion extends StatelessWidget {
               Text('Admin',
                   style: GoogleFonts.roboto(
                       fontSize: 16,
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.w400))
             ]),
           ),

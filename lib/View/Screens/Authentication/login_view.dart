@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:occasional_pockets/Controller/login_controller.dart';
-import 'package:occasional_pockets/View/Common%20Functions/app_color.dart';
-import 'package:occasional_pockets/View/Common%20Widgets/snack_bar.dart';
-import 'package:occasional_pockets/View/Screens/Admin%20view/admin_startup_view.dart';
 import 'package:occasional_pockets/View/Screens/Authentication/registration_view.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 
@@ -16,14 +12,22 @@ class LoginView extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-          children: const [
-            TopSection(),
-            MiddleSection(),
-          ],
-        ),
-      ),
+          resizeToAvoidBottomInset: false,
+          body: Container(
+            decoration: const BoxDecoration(
+              //color: Color.fromARGB(255, 22, 22, 22),
+              image: DecorationImage(
+                  image: AssetImage('images/background.png'),
+                  fit: BoxFit.fill,
+                  alignment: Alignment.bottomCenter),
+            ),
+            child: Column(
+              children: const [
+                TopSection(),
+                MiddleSection(),
+              ],
+            ),
+          )),
     );
   }
 }
@@ -41,7 +45,7 @@ class TopSection extends StatelessWidget {
         child: Text('Login View',
             style: GoogleFonts.josefinSans(
                 fontSize: 28,
-                color: Colors.black87,
+                color: Colors.white,
                 fontWeight: FontWeight.w500)),
       ),
     );
@@ -82,11 +86,17 @@ class MiddleSection extends StatelessWidget {
       controller: loginCrl.emailController,
       keyboardType: TextInputType.visiblePassword,
       // obscureText: true,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Email Address',
-        border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.email),
+        labelStyle: GoogleFonts.josefinSans(
+          color: Colors.white,
+        ),
+        border: const OutlineInputBorder(),
+        prefixIcon: const Icon(Icons.email, color: Colors.white),
         //suffixIcon: Icon(Icons.remove_red_eye),
+      ),
+      style: GoogleFonts.josefinSans(
+        color: Colors.white,
       ),
     );
   }
@@ -97,11 +107,17 @@ class MiddleSection extends StatelessWidget {
       controller: loginCrl.passwController,
       keyboardType: TextInputType.visiblePassword,
       obscureText: true,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: 'Password',
         border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.lock),
-        suffixIcon: Icon(Icons.remove_red_eye),
+        labelStyle: GoogleFonts.josefinSans(
+          color: Colors.white,
+        ),
+        prefixIcon: const Icon(Icons.lock, color: Colors.white),
+        suffixIcon: const Icon(Icons.remove_red_eye, color: Colors.white),
+      ),
+      style: GoogleFonts.josefinSans(
+        color: Colors.white,
       ),
     );
   }
@@ -138,7 +154,7 @@ class MiddleSection extends StatelessWidget {
         Text('I have no any account',
             style: GoogleFonts.roboto(
                 fontSize: 14,
-                color: Colors.black87,
+                color: Colors.white,
                 fontWeight: FontWeight.w200)),
         InkWell(
           onTap: () {

@@ -5,9 +5,8 @@ import 'package:occasional_pockets/View/Common%20Widgets/snack_bar.dart';
 import 'package:occasional_pockets/View/Screens/Admin%20view/Request/admin_request.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 
-class AdminRequestController extends GetxController {
+class UserRequestController extends GetxController {
   String? email;
-  bool ismakeown = false;
   List requestList = [];
   List singleList = [];
 
@@ -27,11 +26,12 @@ class AdminRequestController extends GetxController {
 
   //_______________getAllData
   getAllData() async {
+    requestList.clear();
     print('Fetching Request');
     var db = FirebaseFirestore.instance.collection('request');
     try {
       await db
-          .where('recieverEmail', isEqualTo: email.toString().toLowerCase())
+          .where('senderEmail', isEqualTo: email.toString().toLowerCase())
           .get()
           .then((QuerySnapshot querySnapshot) => {
                 querySnapshot.docs.forEach((doc) async {
@@ -48,7 +48,6 @@ class AdminRequestController extends GetxController {
 
   //____________________fetch detail package
   fetchDetail(String id) async {
-    ismakeown = false;
     singleList.clear();
     print('Geting New Record');
     var db = FirebaseFirestore.instance.collection('request');
@@ -62,9 +61,6 @@ class AdminRequestController extends GetxController {
                   if (doc.id == id) {
                     print('fetching');
                     singleList.add(doc);
-                    if (doc['package'] == 'makeown') {
-                      ismakeown = true;
-                    }
                     update();
                   }
                 }),
@@ -75,18 +71,15 @@ class AdminRequestController extends GetxController {
     update();
   }
 
-  //_________________update status
-  updateStatus(String id, String newstaus) async {
+  cancelOrder(String id) async {
     var db = FirebaseFirestore.instance.collection('request');
     try {
-      db.doc(id).update({'status': newstaus});
-      snackBar('Congratulation', 'Status Updated Successfully', Icons.done_all);
-      requestList.clear();
+      await db.doc(id).delete();
+      snackBar('Canceled', 'Your Order Successfully Cancel', Icons.delete);
       await getAllData();
-      navigatorScreen(const AdminRequest());
       update();
     } catch (e) {
-      snackBar('Oh No', 'Something Went Wrong', Icons.error);
+      snackBar('Oh No', 'Oh No Something Went Wrong', Icons.error);
     }
   }
 }

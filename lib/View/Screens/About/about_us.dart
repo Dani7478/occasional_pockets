@@ -2,27 +2,33 @@
 
 import 'dart:convert';
 
+import 'package:occasional_pockets/View/Screens/Admin%20view/Request/admin_feedback_view.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 import '../Authentication/login_view.dart';
 
 class AboutUsView extends StatelessWidget {
-  const AboutUsView({Key? key}) : super(key: key);
+  AboutUsView({Key? key, required this.role}) : super(key: key);
+  String role;
 
   @override
   Widget build(BuildContext context) {
     AboutUsController abouCtrl = Get.put(AboutUsController());
     Size size = MediaQuery.of(context).size;
-    String userName = 'Your Name';
     return Scaffold(
-      body: SafeArea(
-          child: Column(
-        children: [
-          const TopImageSection(),
-          mySpace(size.height * 0.03),
-          NameSection(name: userName),
-          const Expanded(child: BottomSettingSection()),
-        ],
-      )),
+      body:
+          SafeArea(child: GetBuilder<AboutUsController>(builder: (controller) {
+        return Column(
+          children: [
+            role == 'admin' ? const TopImageSection() : const SizedBox(),
+            mySpace(size.height * 0.03),
+            NameSection(name: controller.userName!),
+            Expanded(
+                child: BottomSettingSection(
+              role: role,
+            )),
+          ],
+        );
+      })),
     );
   }
 
@@ -102,8 +108,8 @@ class NameSection extends StatelessWidget {
 //__________________________________________________BOTTOM SETTING SECTION
 
 class BottomSettingSection extends StatelessWidget {
-  const BottomSettingSection({Key? key}) : super(key: key);
-
+  BottomSettingSection({Key? key, required this.role}) : super(key: key);
+  String role;
   @override
   Widget build(BuildContext context) {
     AboutUsController controller = Get.put(AboutUsController());
@@ -142,7 +148,11 @@ class BottomSettingSection extends StatelessWidget {
 
           //FeedBack
           InkWell(
-            onTap: () {},
+            onTap: () {
+              navigatorScreen(AdminFeedbackView(
+                role: role,
+              ));
+            },
             child: settingCard(Icons.feedback, 'Feedback'),
           ),
 

@@ -50,7 +50,7 @@ class TopPriceHeader extends StatelessWidget {
                   fontWeight: FontWeight.w800),
             ),
             Text(
-              "Price: \$ ${controller.price}",
+              "Price: PKR ${controller.price}",
               style: GoogleFonts.josefinSans(
                   fontSize: 18,
                   color: Colors.redAccent,

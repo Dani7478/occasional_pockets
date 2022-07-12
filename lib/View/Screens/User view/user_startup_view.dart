@@ -3,30 +3,29 @@ import 'package:occasional_pockets/View/Screens/Admin%20view/Manage/admin_manage
 import 'package:occasional_pockets/View/Screens/Admin%20view/Packages/admin_make_own_package_view.dart';
 import 'package:occasional_pockets/View/Screens/Admin%20view/Request/admin_request.dart';
 import 'package:occasional_pockets/View/Screens/Admin%20view/admin_home_view.dart';
+import 'package:occasional_pockets/View/Screens/User%20view/user_home_view.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 import '../../../Controller/AdminControllers/admin_home_cotroller.dart';
+import 'user_request_view.dart';
 
-class AdminStartUpView extends StatelessWidget {
-  const AdminStartUpView({Key? key}) : super(key: key);
+class UserStartUpView extends StatelessWidget {
+  const UserStartUpView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    AdminHomeController adminCrl = Get.put(AdminHomeController());
+    UserHomeController usrCtrl = Get.put(UserHomeController());
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        body: GetBuilder<AdminHomeController>(builder: (controller) {
+        body: GetBuilder<UserHomeController>(builder: (controller) {
           if (controller.index == 1) {
-            return const AdminHomeView();
+            return const UserHomeView();
           }
           if (controller.index == 2) {
-            return const AdminManageView();
-          }
-          if (controller.index == 3) {
-            return const AdminRequest();
+            return const UserRequest();
           } else {
             return AboutUsView(
-              role: 'admin',
+              role: 'user',
             );
           }
         }),
@@ -43,7 +42,7 @@ class NavigationPortion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AdminHomeController>(builder: (controller) {
+    return GetBuilder<UserHomeController>(builder: (controller) {
       return Container(
         width: double.infinity,
         height: 55,
@@ -86,38 +85,38 @@ class NavigationPortion extends StatelessWidget {
 
             //___________________________________Two
 
+            // Expanded(
+            //   child: InkWell(
+            //     onTap: () {
+            //       controller.updateindex(2);
+            //     },
+            //     child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         const Icon(
+            //           Icons.edit_calendar_rounded,
+            //           color: Colors.white,
+            //           size: 25,
+            //         ),
+            //         const SizedBox(
+            //           height: 2,
+            //         ),
+            //         Text(
+            //           'Manage',
+            //           style: GoogleFonts.josefinSans(
+            //               fontSize: 14, color: Colors.white),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+
+            // //___________________________________Three
+
             Expanded(
               child: InkWell(
                 onTap: () {
                   controller.updateindex(2);
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.edit_calendar_rounded,
-                      color: Colors.white,
-                      size: 25,
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Text(
-                      'Manage',
-                      style: GoogleFonts.josefinSans(
-                          fontSize: 14, color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            //___________________________________Three
-
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  controller.updateindex(3);
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -145,7 +144,7 @@ class NavigationPortion extends StatelessWidget {
             Expanded(
               child: InkWell(
                 onTap: () {
-                  controller.updateindex(4);
+                  controller.updateindex(3);
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

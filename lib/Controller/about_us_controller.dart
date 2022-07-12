@@ -7,6 +7,7 @@ class AboutUsController extends GetxController {
   bool isDark = false;
   String? image;
   String? email = 'Pending';
+  String? userName = 'Pending';
 
   updateDarkMood(bool val) {
     isDark = val;
@@ -24,6 +25,7 @@ class AboutUsController extends GetxController {
   callingfunctions() async {
     await getEmail();
     await getImage();
+    await getUserName();
   }
 
   getEmail() async {
@@ -43,6 +45,19 @@ class AboutUsController extends GetxController {
                 image = doc['image'];
                 update();
                 print(image);
+              }),
+            });
+  }
+
+  getUserName() {
+    FirebaseFirestore.instance
+        .collection('user')
+        .where('email', isEqualTo: email)
+        .get()
+        .then((QuerySnapshot querySnapshot) => {
+              querySnapshot.docs.forEach((doc) async {
+                userName = doc['name'];
+                update();
               }),
             });
   }

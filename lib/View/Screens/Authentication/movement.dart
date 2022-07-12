@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:occasional_pockets/View/Screens/Admin%20view/admin_startup_view.dart';
 import 'package:occasional_pockets/View/Screens/Authentication/login_view.dart';
+import 'package:occasional_pockets/View/Screens/User%20view/user_startup_view.dart';
 import 'package:occasional_pockets/linked_screens.dart';
 
 class Movement_Screen extends StatefulWidget {
@@ -21,11 +22,14 @@ class _Movement_ScreenState extends State<Movement_Screen> {
       role = prefrence.getString("role");
       print(role);
     });
-    if (role == 'null') {
+    if (role == 'null' || role == null) {
       navigatorScreen(const LoginView());
     } else {
       if (role == 'admin') {
         navigatorScreen(const AdminStartUpView());
+      }
+      if (role == 'user') {
+        navigatorScreen(const UserStartUpView());
       }
     }
   }

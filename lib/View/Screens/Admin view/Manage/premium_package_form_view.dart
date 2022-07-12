@@ -111,7 +111,7 @@ class MainBodyPortion extends StatelessWidget {
                 controller: controller.priceCtrl,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    hintText: 'Enter Price in Dollar',
+                    hintText: 'Enter Price in PKR',
                     border: InputBorder.none,
                     hintStyle: GoogleFonts.josefinSans(
                         color: Colors.white,
